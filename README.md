@@ -19,7 +19,7 @@ reach/bonus features that may be implemented.
 Necessary:
 • logical representation of a deck and cards that can be "shuffled" (randomized)
   **Option 1 - Simplistic Array approach**
-  |-> array of 52 strings, card names, and randomly remove elements
+  |-> array of 52 strings, containing card names, values, and suit
     |-> calculate value of each from the name, and remove from deck
   |-> this way, the cards don't exist in memory after being removed from the array
   *Option 2 - OOP approach*
