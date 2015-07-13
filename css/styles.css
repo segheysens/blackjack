@@ -1,0 +1,115 @@
+@import url(http://fonts.googleapis.com/css?family=Fredoka+One);
+
+/***************************************************
+BODY
+****************************************************/
+
+*{
+  box-sizing: border-box;
+
+  color: #fff;
+}
+
+/* We tell all items to be 100% width */
+.header, .game-board, .nav, .aside, .footer {
+  flex: 1 100%;
+}
+
+/* We rely on source order for mobile-first approach
+ * in this case:
+ * 1. header
+ * 2. game-controls
+ * 3. main
+ * 4. game-score
+ * 5. footer
+ */
+
+/* Medium screens */
+@media all and (min-width: 600px) {
+  /* We tell both sidebars to share a row */
+  .aside {
+    flex: 1 auto;
+  }
+}
+
+/* Large screens */
+@media all and (min-width: 800px) {
+  /* We invert order of first sidebar and main
+   * And tell the main element to take twice as much width as the other two sidebars
+   */
+  .game-board { flex: 2 50%; }
+  .aside { flex: 1 25% }
+  .footer  { flex: 4 auto; }
+
+  .game-controls { order: 1; }
+  .game-board    { order: 2; }
+  .game-score { order: 3; }
+  .footer  { order: 4; }
+}
+
+body {
+  text-align: center;
+  background-color: seagreen;
+
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-content: stretch;
+
+  margin: 0;
+}
+
+
+/* HEADER
+***************************************************/
+header{
+  background-color: darkgreen;
+}
+
+h1{
+  font-family: 'Fredoka One', Helvetica, sans-serif;
+  font-size: 3em;
+  font-weight: normal;
+  color: #fff;
+  text-shadow: 1px 1px 0 seagreen,
+               2px 2px 0 seagreen,
+               3px 3px 0 seagreen,
+               4px 4px 0 seagreen,
+               5px 5px 0 seagreen,
+               6px 6px 0 seagreen,
+               7px 7px 0 seagreen,
+               8px 8px 0 seagreen,
+               9px 9px 0 seagreen,
+               10px 10px 0 seagreen;
+
+    background-color: darkgreen;
+
+    display: inline-block;
+    padding: 15px 20px 15px 15px;
+  }
+
+
+
+/* MAIN
+****************************************************/
+main{
+
+}
+
+.aside {
+  display: inline-block;
+}
+
+/* FOOTER
+****************************************************/
+footer{
+  font-family: Helvetica, sans-serif;
+  font-size: .75em;
+  font-weight: lighter;
+  background-color: darkgreen;
+
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
