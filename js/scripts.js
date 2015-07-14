@@ -1,5 +1,6 @@
 var deck = [];
 
+newGame();
 
 // newGame() function creates a new deck then shuffles it
 function newGame() {
@@ -63,7 +64,25 @@ function shuffleDeck() {
   }
 }
 
+// A card is passed as a string, and the numeric value is returned
+// *If the card is an Ace, an 'a' is returned - this case will be handled in the
+// handValue function.
+function cardValue(card){
+  character face = card.substring(0,1);
 
-newGame();
+  switch(face){
+    if (face=='2' || face=='3' || face=='4' || face=='5' || face=='6' ||
+        face=='7' || face=='8' || face=='9') {
+
+        return parseInt(face);
+    }
+    else if(face=='0' || face=='j' || face=='q' || face=='k'){
+        return 10;
+    }
+    else {
+        return 'a';
+    }
+}
+
 
 console.log(deck);
