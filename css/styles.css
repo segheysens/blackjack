@@ -152,12 +152,23 @@ h1{
 
 .card {
   background-color: #fff;
-  box-shadow: 10px 10px 5px #888888;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);;
 
   display: inline-flex;
   height: 89px;
   width: 64px;
   border-radius: 6px;
+}
+
+.bottom-right{
+  -webkit-transform-origin: left;
+  -moz-transform-origin: left;
+  -ms-transform-origin: left;
+  transform-origin: left;
+  -webkit-transform: translate(36px, 0px) rotate(180deg) ;
+  -moz-transform: translate(36px, 0x) rotate(180deg) ;
+  -ms-transform: translate(36px, 0px) rotate(180deg) ;
+  transform: translate(36px, 0px) rotate(180deg) ;
 }
 
 .spade {
@@ -185,7 +196,7 @@ h1{
 /* GAME-SCORE
 ****************************************************/
 #game-score{
-  
+
 }
 
 /* FOOTER
