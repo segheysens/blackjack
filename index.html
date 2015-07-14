@@ -4,23 +4,35 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
   </head>
-  <body class="wrapper">
-    <header class="header">
+  <body class="wrapper container">
+    <header class="header grad">
       <h1>blackjack</h1>
     </header>
 
     <!-- This div contains buttons for controlling the game state -->
-    <div class="aside game-controls">
-      game-controls
+    <div id="game-controls" class="aside container">
+
+      <button id="NewGame" class="btn newgamebutton">
+        New Game
+      </button>
+
+      <button id="Hit" class="btn hitbutton">
+        Hit
+      </button>
+
+      <button id="Pass" class="btn passbutton">
+        Pass
+      </button>
+
     </div>
 
     <!-- The game-board contains the main view for the game (i.e. where card values will be seen) -->
-    <main class="game-board">
+    <main id="game-board" class="container">
       game-board
     </main>
 
     <!-- This div contains score and other info for the current game -->
-    <div class="aside game-score">
+    <div id="game-score" class="aside">
       game-score
     </div>
 

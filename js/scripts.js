@@ -1,4 +1,6 @@
 var deck = [];
+var playerHand = [];
+var dealerHand = [];
 
 newGame();
 
@@ -11,7 +13,7 @@ function newGame() {
 
       // face of card (separate cardValue function)
       // Suits: 0 = spades, 1 = hearts, 2 = diamonds, 3 = clubs
-      // Examples: '22' is 2 of diamonds, '0a' is ace of spades
+      // Examples: '22' is 2 of diamonds, 'a0' is ace of spades
       switch(face){
         case 2:
         case 3:
@@ -68,21 +70,51 @@ function shuffleDeck() {
 // *If the card is an Ace, an 'a' is returned - this case will be handled in the
 // handValue function.
 function cardValue(card){
-  character face = card.substring(0,1);
+  var face = card.substring(0,1);
 
-  switch(face){
-    if (face=='2' || face=='3' || face=='4' || face=='5' || face=='6' ||
-        face=='7' || face=='8' || face=='9') {
+  if (face=='2' || face=='3' || face=='4' || face=='5' || face=='6' ||
+      face=='7' || face=='8' || face=='9') {
 
-        return parseInt(face);
-    }
-    else if(face=='0' || face=='j' || face=='q' || face=='k'){
-        return 10;
-    }
-    else {
-        return 'a';
-    }
+      return parseInt(face);
+  }
+  else if(face=='0' || face=='j' || face=='q' || face=='k'){
+      return 10;
+  }
+  else {
+      return 'a';
+  }
 }
 
+// console.log(deck);
 
-console.log(deck);
+function handValue(hand){
+  var sum = 0;
+  var ace_eleven = false;
+  for(var i = 0; i < hand.length; i++){
+    // If the card is anything but an Ace, add its value to the sum
+    if(typeof(cardValue(hand[i])) == 'number') {
+      sum += cardValue(hand[i]);
+    }
+    // It's an ace. If the total value goes over 21, add 1 to the sum, otherwise, add 11
+    // the ace_eleven keeps track of whether an ace is counted as 11
+    else {
+      if(sum + 11 <= 21){
+        sum += 11;
+        ace_eleven = true;
+      } else {
+        sum += 1;
+      }
+    }
+  }
+  
+  // If an ace was counted as eleven, and the sum was pushed over 21,
+  // treat the ace as a 1 (subtract 10).
+  if ((sum > 21) && ace_eleven)
+    return sum - 10;
+  // Otherwise, just return the sum.
+  else
+    return sum;
+}
+
+// Function dealHand() pops two cards off of the deck and inserts them into playerHand. The deck
+// was already randomized when it was created, so no need to do that now.
