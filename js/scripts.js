@@ -4,12 +4,6 @@ var dealerHand = [];
 var winCounter = 0;
 var turnCounter = 0;
 
-// var playerCards = $(".playerHand");
-// var dealerCards = $("#dealerHand");
-var playerText = $(".playerHand h2");
-var dealerText = $("#dealerHand h2");
-// var gameBoard = $("#game-board");
-
 var wins = $(".wins");
 var turn = $(".turn");
 
@@ -80,6 +74,11 @@ function newGame() {
 }
 
 function newTurn(){
+  //At the end of a game, there will be <4 cards to deal out
+  if (deck.length < 4){
+    wins.html("You won "+winCounter.toString()+ " out of " + turnCounter.toString()+"!");
+    return true;
+  }
   turnCounter++;
   dealerPlay();
   hitPlayer();
@@ -187,9 +186,14 @@ function clearTable(){
 
 // Function hitPlayer inserts a card into the player's hand (logically and visually)
 function hitPlayer(){
-  // If the game has been lost,
-  if(handValue(playerHand) > 21){
-    return false;
+  // If the gplayer went bust, just return
+  // if(handValue(playerHand) > 21){
+  //   return false;
+  // }
+  // If the deck has been depleted
+  if (deck.length < 4){
+    wins.html("You won "+winCounter.toString()+ " out of " + turnCounter.toString()+"!");
+    return true;
   }
 
   var card = deck.pop();

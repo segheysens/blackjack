@@ -171,7 +171,7 @@ main{
   -ms-transform-origin: left;
   transform-origin: left;
   -webkit-transform: translate(36px, 0px) rotate(180deg) ;
-  -moz-transform: translate(36px, 0x) rotate(180deg) ;
+  -moz-transform: translate(36px, 0px) rotate(180deg) ;
   -ms-transform: translate(36px, 0px) rotate(180deg) ;
   transform: translate(36px, 0px) rotate(180deg) ;
 }
@@ -247,7 +247,7 @@ Media Query adjustments
 @media all and (min-width: 600px) {
   /* We tell both sidebars to share a row */
   .aside {
-    flex: 1 auto;
+    flex: 1;
   }
 
   h1{
@@ -262,7 +262,7 @@ Media Query adjustments
    */
   #game-board { flex: 2 50%; }
   .aside { flex: 1 25% }
-  footer  { flex: 4 auto; }
+  footer  { flex: 4; }
 
   h1{
     font-size: 3em;
