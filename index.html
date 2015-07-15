@@ -4,42 +4,63 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
   </head>
-  <body class="wrapper container">
+  <body class="container">
     <header class="header grad">
       <h1>blackjack</h1>
     </header>
 
-    <!-- This div contains buttons for controlling the game state -->
-    <div id="game-controls" class="aside container">
 
-      <button id="NewGame" class="btn newgamebutton">
-        New Game
-      </button>
-
-      <button id="Hit" class="btn hitbutton">
-        Hit
-      </button>
-
-      <button id="Pass" class="btn passbutton">
-        Pass
-      </button>
-
-    </div>
 
     <!-- The game-board contains the main view for the game (i.e. where card values will be seen) -->
-    <main id="game-board" class="container">
-      <div class="card heart"> 4 &hearts;<span class="bottom-right heart">4 &hearts;</span></div>
+    <main id="game" class="container">
+
+      <!-- This div contains buttons for controlling the game state -->
+      <div id="game-controls" class="aside container">
+
+        <button id="NewGame" class="btn newgamebutton">
+          New Game
+        </button>
+
+        <button id="Hit" class="btn hitbutton">
+          Hit
+        </button>
+
+        <button id="Pass" class="btn passbutton">
+          Pass
+        </button>
+
+      </div>
+
+
+      <div id="game-board">
+        <!-- Example card format, for 4 of hearts
+          <span class="card heart"> 4 &hearts;<span class="bottom-right heart">4 &hearts;</span></span>
+        -->
+        <div id="dealerHand">
+          <h2 class="game-title">dealer</h2>
+
+        </div>
+
+        <div class="playerHand">
+          <h2 class="game-title">player</h2>
+
+        </div>
+      </div>
+
+      <!-- This div contains score and other info for the current game -->
+      <div id="game-score" class="aside">
+        <h2 class="game-title">hands won</h2>
+        <p class="wins"></p>
+        <h3 class="turn"></p>
+      </div>
+
     </main>
 
-    <!-- This div contains score and other info for the current game -->
-    <div id="game-score" class="aside">
-      game-score
-    </div>
-
+    <!--
     <footer class="footer">
       <h2> © 2015 | Stephen Gheysens</h2>
     </footer>
-
+    -->
   </body>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>

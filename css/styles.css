@@ -8,6 +8,7 @@ BODY
   box-sizing: border-box;
 
   color: #fff;
+  margin: 0;
 }
 
 /* We tell all items to be 100% width */
@@ -24,41 +25,23 @@ header, #game-board, nav, .aside, footer {
  * 5. footer
  */
 
-/* Medium screens */
-@media all and (min-width: 600px) {
-  /* We tell both sidebars to share a row */
-  .aside {
-    flex: 1 auto;
-  }
-}
-
-/* Large screens */
-@media all and (min-width: 800px) {
-  /* We invert order of first sidebar and main
-   * And tell the main element to take twice as much width as the other two sidebars
-   */
-  #game-board { flex: 2 50%; }
-  .aside { flex: 1 25% }
-  footer  { flex: 4 auto; }
-
-  #game-controls { order: 1; }
-  #game-board    { order: 2; }
-  #game-score { order: 3; }
-  footer  { order: 4; }
-}
-
 body {
   text-align: center;
   background-color: seagreen;
 
   margin: 0;
+
+  height:100%;
+  width: 100%;
+  min-height:100%;
+  position:absolute;
 }
 
 .container {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
-  align-content: stretch;
+  align-content: flex-start;
 }
 
 /* HEADER
@@ -77,7 +60,7 @@ header{
 
 h1{
   font-family: 'Fredoka One', Helvetica, sans-serif;
-  font-size: 3em;
+  font-size: 1.5em;
   font-weight: normal;
   color: #fff;
   text-shadow: 1px 1px 0 seagreen,
@@ -88,14 +71,19 @@ h1{
                6px 6px 0 seagreen,
                7px 7px 0 seagreen,
                8px 8px 0 seagreen,
-               9px 9px 0 seagreen,
-               10px 10px 0 seagreen;
+               9px 9px 0 seagreen;
 
     /*background-color: darkgreen;*/
 
     display: inline-block;
-    padding: 10px 20px 5px 15px;
+    padding: 10px 20px 15px 15px;
   }
+
+  /* MAIN
+  ****************************************************/
+main{
+  padding-bottom:40px;
+}
 
   /* GAME-CONTROLS
   ****************************************************/
@@ -106,7 +94,7 @@ h1{
 
   border: none;
   cursor: pointer;
-  padding: 20px 50px;
+  padding: 5% 10%;
   display: inline-block;
   margin: 15px 30px;
   text-transform: uppercase;
@@ -150,6 +138,22 @@ h1{
   align-content: stretch;
 }
 
+#dealerHand {
+  margin: 20px;
+}
+
+.game-title{
+  font-family: 'Fredoka One', Helvetica, sans-serif;
+  font-size: 1.5em;
+  font-weight: normal;
+
+  padding: 5px;
+}
+
+.playerHand {
+ margin: 20px
+}
+
 .card {
   background-color: #fff;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);;
@@ -158,6 +162,7 @@ h1{
   height: 89px;
   width: 64px;
   border-radius: 6px;
+  margin: 10px 3px;
 }
 
 .bottom-right{
@@ -171,23 +176,18 @@ h1{
   transform: translate(36px, 0px) rotate(180deg) ;
 }
 
-.spade {
+.spade, .club {
   color: #000;
 }
 
-.club {
-  color: #000;
-}
-
-.heart {
+.heart, .diam {
   color: #d33;
 }
 
-.diamond {
-  color: #d33;
+.hole{
+  background-image: url(../images/ga-logo.png);
+  background-size: contain;
 }
-
-
 
 .aside {
   display: inline-block;
@@ -196,7 +196,19 @@ h1{
 /* GAME-SCORE
 ****************************************************/
 #game-score{
+  text-align: center;
+  margin: 20px;
+}
 
+.wins {
+  font-family: 'Fredoka One', Helvetica, sans-serif;
+  font-size: 5em;
+  font-weight: normal;
+  margin: 0;
+}
+
+h3 {
+  font-family: Helvetica, sans-serif;
 }
 
 /* FOOTER
@@ -210,13 +222,50 @@ footer{
   border-top: 8px solid rgba(20, 20, 20, .1);
 
   width: 100%;
-  height: 40px;
+  height: auto;
+  min-height: 40px;
   position: absolute;
   bottom: 0;
   left: 0;
+  margin: auto 0px 0px 0px;
 }
 
 h2 {
   padding-top: 5px;
   margin: 0em;
+}
+
+
+
+
+/***************************************************
+Media Query adjustments
+****************************************************/
+
+
+/* Medium screens */
+@media all and (min-width: 600px) {
+  /* We tell both sidebars to share a row */
+  .aside {
+    flex: 1 auto;
+  }
+
+  h1{
+    font-size: 2em;
+  }
+}
+
+/* Large screens */
+@media all and (min-width: 800px) {
+  /* We invert order of first sidebar and main
+   * And tell the main element to take twice as much width as the other two sidebars
+   */
+  #game-board { flex: 2 50%; }
+  .aside { flex: 1 25% }
+  footer  { flex: 4 auto; }
+
+  h1{
+    font-size: 3em;
+  }
+
 }

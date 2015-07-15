@@ -1,12 +1,40 @@
 var deck = [];
 var playerHand = [];
 var dealerHand = [];
+var winCounter = 0;
+var turnCounter = 0;
+
+// var playerCards = $(".playerHand");
+// var dealerCards = $("#dealerHand");
+var playerText = $(".playerHand h2");
+var dealerText = $("#dealerHand h2");
+// var gameBoard = $("#game-board");
+
+var wins = $(".wins");
+var turn = $(".turn");
 
 newGame();
+
+
+// add eventListener to each button
+$("#NewGame").eq(0).click( function(event){newGame();} );
+$("#Hit").eq(0).click( function(event){hitPlayer();} );
+$("#Pass").eq(0).click( function(event){passPlayer();} );
 
 // newGame() function creates a new deck then shuffles it
 function newGame() {
   deck = [];
+  playerHand = [];
+  dealerHand = [];
+  winCounter = 0;
+  turnCounter = 0;
+
+  //console.log();
+  // Clear the visuals (card div's) on the gameboard
+  clearTable();
+
+  wins.html(winCounter.toString());
+
 
   for (var suit = 0; suit <= 3; suit++){
     for(var face = 2; face <= 14; face++ ){
@@ -45,6 +73,21 @@ function newGame() {
 
   //Randomize the deck
   shuffleDeck();
+  //Start the first turn
+  console.log("A new game start with a new deck with "+deck.length+" cards!");
+  newTurn();
+
+}
+
+function newTurn(){
+  turnCounter++;
+  dealerPlay();
+  hitPlayer();
+  dealerPlay();
+  hitPlayer();
+  console.log("A new turn has begun.");
+
+  checkForBlackjacks();
 }
 
 /* I found an awesome explanation of an O(n) array randomizer called the
@@ -63,6 +106,26 @@ function shuffleDeck() {
     t = deck[m];
     deck[m] = deck[i];
     deck[i] = t;
+  }
+}
+
+// Simple function to return the respective classes for each suit
+// |-> will be utilized when creating the card elements
+function suitClassName(card){
+  var suit = card.substring(1);
+
+  switch (suit){
+    case '0':
+      return "spade";
+      break;
+    case '1':
+      return "heart";
+      break;
+    case '2':
+      return "diamond";
+      break;
+    default:
+      return "club";
   }
 }
 
@@ -106,7 +169,7 @@ function handValue(hand){
       }
     }
   }
-  
+
   // If an ace was counted as eleven, and the sum was pushed over 21,
   // treat the ace as a 1 (subtract 10).
   if ((sum > 21) && ace_eleven)
@@ -116,5 +179,131 @@ function handValue(hand){
     return sum;
 }
 
-// Function dealHand() pops two cards off of the deck and inserts them into playerHand. The deck
-// was already randomized when it was created, so no need to do that now.
+// Function clearTable clears all of the visual "hands" on the table
+function clearTable(){
+  $(".card").remove();
+  console.log("Cleared the table");
+}
+
+// Function hitPlayer inserts a card into the player's hand (logically and visually)
+function hitPlayer(){
+  // If the game has been lost,
+  if(handValue(playerHand) > 21){
+    return false;
+  }
+
+  var card = deck.pop();
+  playerHand.push(card);
+  var suit = suitClassName(card);
+
+  // Character for a diamond is shortened to &diams
+  (suit == 'diamond') ? suit = 'diam' : suit = suit;
+
+  var face = card.substring(0,1);
+  // 0 represents a 10, convert for corner case
+  (face == '0') ? face = '10' : face = face;
+
+  $(".playerHand").append("<span class='card "+suit+"'> "+face+" &"+suit+
+    "s;<span class='bottom-right "+suit+"'>"+face+" &"+suit+"s;</span></span>");
+  //console.log($(".playerHand h2"));
+
+  if(handValue(playerHand) > 21){
+    dealerWins();
+    newTurn();
+  }
+  checkForBlackjacks();
+}
+
+// Function passPlayer allows a player to pass/stand on his turn
+function passPlayer(){
+  //First, check if playerHand value < dealerHand -> if true, dealerWins()
+  if(handValue(playerHand) < handValue(dealerHand)){
+    dealerWins();
+    newTurn();
+  } // else if playerHand is equal to dealerHand, it's a tie -> clearTable() and start newTurn();
+  else if(handValue(playerHand) == handValue(dealerHand)){
+    playerHand = [];
+    dealerHand = [];
+    console.log("It's a tie!");
+    clearTable();
+    newTurn();
+  } // else, the playerHand > dealerHand. dealer has to hit if < 17
+  else {
+    //if dealerHand < 17, dealerPlay (take another card)
+    (handValue(dealerHand) < 17) ? dealerPlay() : console.log("Dealer is > 17 ("+handValue(dealerHand)+")");
+    // if the dealer went bust, playerWins, otherwise, it's just like the player passed again
+    playerWins();
+    newTurn();
+
+  }
+}
+
+// Function dealerPlay inserts a card into the dealer's hand (logically and visually)
+function dealerPlay(){
+
+  var card = deck.pop();
+  dealerHand.push(card);
+
+  // Change diamond to diam if needed (for character code)
+  var suit = suitClassName(card);
+  (suit == 'diamond') ? suit = 'diam' : suit = suit;
+
+  // 0 is representative value for 10, change face if needed
+  var face = card.substring(0,1);
+  (face == '0') ? face = '10' : face = face;
+
+  // If this is the first card being inserted, make it invisible
+  if(dealerHand.length == 1){
+    $("#dealerHand").append("<span class='card hole'><span></span></span>");
+  }
+  else{
+    $("#dealerHand").append("<span class='card "+suit+"'> "+face+" &"+suit+
+      "s;<span class='bottom-right "+suit+"'>"+face+" &"+suit+"s;</span></span>");
+  }
+
+  if(handValue(dealerHand) > 21){
+    playerWins();
+    newTurn();
+    return false;
+  }
+
+}
+
+function checkForBlackjacks(){
+  //Check player and dealer for blackjacks
+  if(handValue(playerHand) == 21){
+    if(handValue(dealerHand) == 21){
+      playerHand = [];
+      dealerHand = [];
+      console.log("It's a tie!");
+      clearTable();
+    }else{
+      playerWins();
+      newTurn();
+    }
+  }else if(handValue(dealerHand) == 21){
+    dealerWins();
+    newTurn();
+  }
+}
+
+function playerWins(){
+  console.log("Player won with the hand: "+playerHand+"and the dealer's hand was "+dealerHand);
+  playerHand = [];
+  dealerHand = [];
+  winCounter++;
+  //Update win counter
+  wins.html(winCounter.toString()+ " out of " + turnCounter.toString());
+  turn.html("current turn: "+(turnCounter+1));
+  clearTable();
+}
+
+function dealerWins(){
+  console.log("Dealer won with the hand: "+dealerHand+"and the player's hand was "+playerHand);
+  playerHand = [];
+  dealerHand = [];
+  //Update win counter
+  wins.html(winCounter.toString()+ " out of " + turnCounter.toString());
+  turn.html("current turn: "+(turnCounter+1));
+  clearTable();
+}
