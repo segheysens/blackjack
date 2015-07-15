@@ -1,4 +1,4 @@
-# blackjack
+# blackjack - http://segheysens.github.io/blackjack/
 A small blackjack game created for the first project assignment during my GA Web Development Immersive.
 
 # User Stories
@@ -47,3 +47,8 @@ Nice-to-haves:
 • Fake money to bet with (maybe $100 at the start of each game)
 • Computer AI
 • Multiplayer support
+
+
+
+Final Review: http://segheysens.github.io/blackjack/
+I utilized a spread of vanilla Javascript, jQuery selectors and modifiers, CSS, and HTML in this project. I gained a lot of practice with jQuery event listeners and modifiers, and CSS styling - those two would probably be my biggest takeaways from this first project. I also will need to commit more often as I write more complex code and avoid my urge to jump into solving the next problem. There are some styling issues that I need to address and certain user state cases I'd like to make more fluid for user experience. Some features I would liek to add include a balance for betting, and multiplayer support.
