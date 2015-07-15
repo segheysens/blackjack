@@ -159,7 +159,7 @@ main{
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
 
   display: inline-flex;
-  -webkit-display: inline-flex;
+  display: -webkit-inline-flex;
   height: 89px;
   min-height: 89px;
   width: 64px;
