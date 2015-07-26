@@ -9,7 +9,7 @@ var turn = $(".turn");
 
 newGame();
 
-
+var test;
 // add eventListener to each button
 $("#NewGame").eq(0).click( function(event){newGame();} );
 $("#Hit").eq(0).click( function(event){hitPlayer();} );
