@@ -9,7 +9,7 @@ var turn = $(".turn");
 
 newGame();
 
-
+var test;
 // add eventListener to each button
 $("#NewGame").eq(0).click( function(event){newGame();} );
 $("#Hit").eq(0).click( function(event){hitPlayer();} );
@@ -207,8 +207,8 @@ function hitPlayer(){
   // 0 represents a 10, convert for corner case
   (face == '0') ? face = '10' : face = face;
 
-  $(".playerHand").append("<span class='card "+suit+"'> "+face+" &"+suit+
-    "s;<span class='bottom-right "+suit+"'>"+face+" &"+suit+"s;</span></span>");
+  $("#playerHand").append("<div class='card'> <p class='"+suit+"'>"+face+" &"+suit+
+    "s;</p><p class='bottom-right "+suit+"'>"+face+" &"+suit+"s;</p></div>");
   //console.log($(".playerHand h2"));
 
   if(handValue(playerHand) > 21){
@@ -261,8 +261,8 @@ function dealerPlay(){
     $("#dealerHand").append("<span class='card hole'><span></span></span>");
   }
   else{
-    $("#dealerHand").append("<span class='card "+suit+"'> "+face+" &"+suit+
-      "s;<span class='bottom-right "+suit+"'>"+face+" &"+suit+"s;</span></span>");
+    $("#dealerHand").append("<div class='card'> <p class='"+suit+"'>"+face+" &"+suit+
+      "s;</p><p class='bottom-right "+suit+"'>"+face+" &"+suit+"s;</p></div>");
   }
 
   if(handValue(dealerHand) > 21){
