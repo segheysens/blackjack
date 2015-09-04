@@ -11,6 +11,7 @@ newGame();
 
 var test;
 // add eventListener to each button
+// im curious as to why you decided to utilize an anonymous function here instead of just using the functions as callbacks
 $("#NewGame").eq(0).click( function(event){newGame();} );
 $("#Hit").eq(0).click( function(event){hitPlayer();} );
 $("#Pass").eq(0).click( function(event){passPlayer();} );
@@ -33,6 +34,7 @@ function newGame() {
   for (var suit = 0; suit <= 3; suit++){
     for(var face = 2; face <= 14; face++ ){
 
+// cool way to make a deck, however instead of encapsulating it in a string, why not use an object? Although its a bit more code up front, its more scalable and modular because we'll be able to add key/value pairs as we see fit
       // face of card (separate cardValue function)
       // Suits: 0 = spades, 1 = hearts, 2 = diamonds, 3 = clubs
       // Examples: '22' is 2 of diamonds, 'a0' is ace of spades
@@ -47,6 +49,7 @@ function newGame() {
         case 9:
           deck.push(face.toString() + suit.toString());
           break;
+          // cool, i didn't know you could do switch statements like this with multiple cases pointing to one return
         case 10:
           deck.push('0' + suit.toString());
           break;
@@ -160,6 +163,7 @@ function handValue(hand){
     // It's an ace. If the total value goes over 21, add 1 to the sum, otherwise, add 11
     // the ace_eleven keeps track of whether an ace is counted as 11
     else {
+      // nice
       if(sum + 11 <= 21){
         sum += 11;
         ace_eleven = true;
