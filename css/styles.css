@@ -29,20 +29,14 @@ body {
 
 /* HEADER
 ***************************************************/
-header{
+.header{
   border-bottom: 6px solid rgba(20, 20, 20, .1);
   margin-bottom: 5px;
   width: 100%;
+  background: darkgreen;
 }
 
-.grad {
-  background: -webkit-linear-gradient(90deg, seagreen 0%, darkgreen 3%, darkgreen 97%, seagreen 100%); /* Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(90deg, seagreen 0%, darkgreen 3%, darkgreen 97%, seagreen 100%); /* For Opera 11.6 to 12.0 */
-  background: -moz-linear-gradient(90deg, seagreen 0%, darkgreen 3%, darkgreen 97%, seagreen 100%); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(90deg, seagreen 0%, darkgreen 3%, darkgreen 97%, seagreen 100%); /* Standard syntax */
-}
-
-h1{
+.header h1 {
   font-family: 'Fredoka One', Helvetica, sans-serif;
   font-size: 1.5em;
   font-weight: normal;
@@ -57,8 +51,6 @@ h1{
                8px 8px 0 seagreen,
                9px 9px 0 seagreen;
 
-    /*background-color: darkgreen;*/
-
     display: inline-block;
     padding: 10px 20px 15px 15px;
   }
@@ -71,7 +63,7 @@ main{
 
 p{
   text-align: left;
-  padding-left: 5px;
+  padding-left: 3px;
 }
 
   /* GAME-CONTROLS
@@ -100,7 +92,6 @@ p{
   border-radius: 5px;
   background: #007700;
   padding: 20px 40px;
-  box-shadow: 0 6px darkgreen;
   display: block;
   margin: 10px auto;
 }
@@ -108,16 +99,25 @@ p{
 .hitbutton {
   border-radius: 25px;
   background: #770000;
-  box-shadow: 0 6px darkred;
 }
 
-.passbutton {
+.standbutton {
   border-radius: 25px;
-  background: #1122cc;
-  box-shadow: 0 6px darkblue;
+  background: #1133dd;
 }
 
-/* invisible class for hiding hit and pass buttons when not in use */
+/* Material Shadows */
+/* Shoutout Sam Thornton for these Material shadows: http://codepen.io/sdthornton/pen/wBZdXq*/
+.newgamebutton, .hitbutton, .standbutton {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.2s ease-in-out;
+}
+
+.newgamebutton:hover, .hitbutton:hover, .standbutton:hover {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+/* invisible class for hiding hit and stand buttons when not in use */
 .invisible {
   display: none;
 }
@@ -125,17 +125,17 @@ p{
 
 /* GAME-BOARD
 ****************************************************/
-#game-board {
+.game-board {
   width: 80%;
   margin: 25px auto;
   vertical-align: top;
 }
 
-#game-board div{
+.game-board div{
   display: inline-block;
 }
 
-#dealerHand {
+.hand-container {
   box-sizing: border-box;
   display: inline-block;
   padding: 5px;
@@ -143,16 +143,7 @@ p{
   vertical-align: top;
   border-radius: 5px;
   background: #007700;
-}
-
-#playerHand {
-  box-sizing: border-box;
-  display: inline-block;
-  padding: 5px;
-  margin: 20px;
-  vertical-align: top;
-  border-radius: 5px;
-  background: #007700;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 
 .game-title{
@@ -182,10 +173,10 @@ p{
   -moz-transform-origin: left;
   -ms-transform-origin: left;
   transform-origin: left;
-  -webkit-transform: translate(45px, 50px) rotate(180deg) ;
-  -moz-transform: translate(45px, 50px) rotate(180deg) ;
-  -ms-transform: translate(45px, 50px) rotate(180deg) ;
-  transform: translate(45px, 50px) rotate(180deg) ;
+  -webkit-transform: translate(45px, 40px) rotate(180deg) ;
+  -moz-transform: translate(45px, 40px) rotate(180deg) ;
+  -ms-transform: translate(45px, 40px) rotate(180deg) ;
+  transform: translate(45px, 40px) rotate(180deg) ;
 }
 
 .spade, .club {
@@ -253,6 +244,34 @@ html, body, main {
   height: 100%;
 }
 
+
+/* GAME INSTRUCTIONS WINDOW
+****************************************************/
+.instructions-container {
+  z-index: 99999;
+  position: absolute;
+  top: 10px; right: 10px;
+  max-width: 600px;
+  padding: 30px;
+  background: #fdfdfd;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.22), 0 1px 2px rgba(0,0,0,0.34);
+}
+.instructions-container h1:first-of-type {
+  font-family: 'Fredoka One', Helvetica, sans-serif;
+  color: darkgreen;
+  display: inline-block;
+}
+
+.instructions-container p,
+.instructions-container p em,
+.instructions-container li,
+.instructions-container li em,
+.instructions-container h3 {
+  text-align: left;
+  line-height: 1.3em;
+  font-family: Helvetica, sans-serif;
+  color: darkgreen;
+}
 
 
 /***************************************************
