@@ -38,7 +38,7 @@ body {
 
 .header h1 {
   font-family: 'Fredoka One', Helvetica, sans-serif;
-  font-size: 1.5em;
+  font-size: 2em;
   font-weight: normal;
   color: #fff;
   text-shadow: 1px 1px 0 seagreen,
@@ -57,10 +57,6 @@ body {
 
   /* MAIN
   ****************************************************/
-main{
-  padding-bottom:40px;
-}
-
 p{
   text-align: left;
   padding-left: 3px;
@@ -75,7 +71,7 @@ p{
 }
 
 .btn {
-  font-size: 1em;
+  font-size: 1.25em;
   font-weight: 700;
   letter-spacing: 1px;
 
@@ -97,13 +93,13 @@ p{
 }
 
 .hitbutton {
-  border-radius: 25px;
-  background: #770000;
+  border-radius: 15px;
+  background: #A33333;
 }
 
 .standbutton {
-  border-radius: 25px;
-  background: #1133dd;
+  border-radius: 15px;
+  background: #448AFF;
 }
 
 /* Material Shadows */
@@ -148,7 +144,7 @@ p{
 
 .game-title{
   font-family: 'Fredoka One', Helvetica, sans-serif;
-  font-size: 1.5em;
+  font-size: 2em;
   font-weight: normal;
 
   padding: 5px;
@@ -159,24 +155,25 @@ p{
   background-color: #fff;
   box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
 
-  height: 89px;
+  height: 8em;
   min-height: 89px;
-  width: 64px;
+  width: 6em;
   border-radius: 6px;
-  /*padding: 10px;*/
+  padding: .1em;
   margin: 10px 15px;
 }
 
-.bottom-right{
-  display:inline-block;
-  -webkit-transform-origin: left;
-  -moz-transform-origin: left;
-  -ms-transform-origin: left;
-  transform-origin: left;
-  -webkit-transform: translate(45px, 40px) rotate(180deg) ;
-  -moz-transform: translate(45px, 40px) rotate(180deg) ;
-  -ms-transform: translate(45px, 40px) rotate(180deg) ;
-  transform: translate(45px, 40px) rotate(180deg) ;
+.card p {
+  font-size: 1.25em;
+}
+
+.bottom-right {
+  top: 3.3em;
+  position: relative;
+  -webkit-transform: rotate(180deg) ;
+  -moz-transform: rotate(180deg) ;
+  -ms-transform: rotate(180deg) ;
+  transform: rotate(180deg) ;
 }
 
 .spade, .club {
@@ -215,11 +212,19 @@ h3 {
   font-family: Helvetica, sans-serif;
 }
 
+.turn-descriptions {
+  list-style: none;
+}
+
+.turn-descriptions li {
+  line-height: 1.25em;
+}
+
 /* FOOTER
 ****************************************************/
 footer{
   font-family: Helvetica, sans-serif;
-  font-size: .75em;
+  font-size: 1em;
   font-weight: lighter;
   background-color: darkgreen;
 
@@ -250,8 +255,8 @@ html, body, main {
 .instructions-container {
   z-index: 99999;
   position: absolute;
-  top: 10px; right: 10px;
-  max-width: 600px;
+  top: 5%; right: 5%;
+  max-width: 90%;
   padding: 30px;
   background: #fdfdfd;
   box-shadow: 0 1px 3px rgba(0,0,0,0.22), 0 1px 2px rgba(0,0,0,0.34);
@@ -262,11 +267,15 @@ html, body, main {
   display: inline-block;
 }
 
-.instructions-container p,
-.instructions-container p em,
-.instructions-container li,
-.instructions-container li em,
-.instructions-container h3 {
+.instructions-container section.instructions-text {
+  max-width: 600px;
+}
+
+.instructions-container section p,
+.instructions-container section p em,
+.instructions-container section li,
+.instructions-container section li em,
+.instructions-container section h3 {
   text-align: left;
   line-height: 1.3em;
   font-family: Helvetica, sans-serif;

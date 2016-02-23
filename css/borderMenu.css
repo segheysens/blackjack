@@ -64,7 +64,7 @@ a:focus {
 
 .bt-menu.bt-menu-open {
 	height: 100%;
-	border-width: 0px 0px 50px 150px;
+	border-width: 0px 0px 0px 150px;
 	background-color: rgba(0,0,0,0.3);
 	-webkit-transition: border-width 0.3s, background-color 0.3s;
 	transition: border-width 0.3s, background-color 0.3s;
@@ -154,8 +154,9 @@ a:focus {
 }
 
 .bt-menu ul:nth-of-type(2) {
-	right: 0;
-	bottom: 0;
+	left: 0px;
+	bottom: 15px;
+	width: 150px;
 }
 
 .bt-menu ul li,
@@ -164,6 +165,7 @@ a:focus {
 }
 
 .bt-menu ul:nth-of-type(2) li {
+	padding: 5px;
 	float: left;
 	font-size: 0px;
 }
@@ -258,7 +260,7 @@ a:focus {
 	color: transparent;
   /*height: 80%;*/
   padding: 20%;
-	text-align: center;
+	text-align: left;
 	font-size: 0px;
 }
 
@@ -276,6 +278,10 @@ a:focus {
 .bt-menu ul li a:hover:before,
 .bt-menu ul li a:focus:before {
 	color: seagreen;
+}
+
+.bt-menu ul li a svg {
+
 }
 
 .bt-menu ul li a svg path{
@@ -296,7 +302,7 @@ a:focus {
   font-variant: normal;
   text-transform: none !important;
   speak: none;
-  display: inline-block;
+	display: inline-block;
   text-decoration: none;
   width: 1em;
   line-height: inherit;
