@@ -7,14 +7,21 @@ var game = {
 
   wins: $(".wins"),
   turn: $(".turn"),
+  turnDescriptions: $(".turn-descriptions"),
 
   // newGame() function creates a new this.deck then shuffles it
   newGame: function() {
     // Clear the visuals (card div's) on the gameboard
     this.clearTable();
+    this.turn.html("");
+    this.turnDescriptions.html("");
+
+    this.playerHand = [];
+    this.dealerHand = [];
+    this.winCounter = 0;
+    this.deck = [];
 
     this.wins.html(this.winCounter.toString());
-
 
     for (var suit = 0; suit <= 3; suit++){
       for(var face = 2; face <= 14; face++ ){
@@ -55,23 +62,27 @@ var game = {
     this.shuffleDeck();
     this.turnCounter = 0;
     //Start the first turn
-    console.log("A new game start with a new this.deck with "+this.deck.length+" cards!");
+    console.log("A new game starts with a new deck, "+this.deck.length+" cards!");
     this.newTurn();
 
   },
 
   newTurn: function() {
+    this.playerHand = [];
+    this.dealerHand = [];
     //At the end of a game, there will be <4 cards to deal out
     if (this.deck.length < 4){
       this.wins.html("You won "+this.winCounter.toString()+ " out of " + this.turnCounter.toString()+"!");
+      this.turn.html("Here were your recent turns:");
       return true;
     }
     this.turnCounter++;
-    this.dealerPlay();
-    this.hitPlayer();
-    this.dealerPlay();
-    this.hitPlayer();
     console.log("A new turn has begun.");
+    this.hitDealer();
+    this.hitPlayer();
+    this.hitDealer();
+    this.hitPlayer();
+    console.log("Turn "+this.turnCounter+" starts - the dealer with "+this.dealerHand+"("+this.handValue(this.dealerHand)+") and the player with "+this.playerHand+" ("+this.handValue(this.playerHand)+")");
 
     this.checkForBlackjacks();
   },
@@ -134,8 +145,6 @@ var game = {
     }
   },
 
-  // console.log(this.deck);
-
   handValue: function(hand){
     var sum = 0;
     var ace_eleven = false;
@@ -173,13 +182,15 @@ var game = {
 
   // Function hitPlayer inserts a card into the player's hand (logically and visually)
   hitPlayer: function() {
+    console.log("hitPlayer was called");
     // If the player went bust, just return
-    // if(handValue(this.playerHand) > 21){
-    //   return false;
-    // }
+    if(this.handValue(this.playerHand) > 21){
+      return false;
+    }
     // If the this.deck has been depleted
     if (this.deck.length < 4){
       this.wins.html("You won "+this.winCounter.toString()+ " out of " + this.turnCounter.toString()+"!");
+      this.turn.html("Here were your recent turns:");
       return true;
     }
 
@@ -200,39 +211,57 @@ var game = {
     // console.log($(".this.playerHand h2"));
 
     if(this.handValue(this.playerHand) > 21){
+      console.log("Player just went bust with the hand "+this.playerHand+"("+this.handValue(this.playerHand)+")");
       this.dealerWins();
-      this.newTurn();
     };
     this.checkForBlackjacks();
   },
 
   // Function standPlayer allows a player to stand/stand on his turn
   standPlayer: function() {
+    console.log("standPlayer was called");
     //First, check if this.playerHand value < this.dealerHand -> if true, dealerWins()
     if(this.handValue(this.playerHand) < this.handValue(this.dealerHand)){
+      console.log("dealerWins from standPlayer");
       this.dealerWins();
-      this.newTurn();
     } // else if this.playerHand is equal to this.dealerHand, it's a tie -> clearTable() and start newTurn();
-    else if(this.handValue(this.playerHand) == this.handValue(this.dealerHand)){
+    else if(this.handValue(this.playerHand) === this.handValue(this.dealerHand)){
       this.playerHand = [];
       this.dealerHand = [];
-      console.log("It's a tie!");
+      this.turnDescriptions.append("<li>On turn "+this.turnCounter+", the player and dealer tied with a hand of "+this.handValue(this.playerHand)+"</li>");
       this.clearTable();
       this.newTurn();
     } // else, the this.playerHand > this.dealerHand. dealer has to hit if < 17
     else {
-      //if this.dealerHand < 17, dealerPlay (take another card)
-      (this.handValue(this.dealerHand) < 17) ? this.dealerPlay() : console.log("Dealer is > 17 ("+this.handValue(this.dealerHand)+")");
-      // if the dealer went bust, playerWins, otherwise, it's just like the player standed again
-      this.playerWins();
-      this.newTurn();
+      //while this.dealerHand < 17, hitDealer (take another card)
+      while(this.handValue(this.dealerHand) < 17){
+        this.hitDealer();
+      }
+      // if the dealer didn't go bust...
+      if( this.handValue(this.dealerHand) <= 21) {
+        if(this.handValue(this.dealerHand) > this.handValue(this.playerHand)){
+          this.dealerWins();
+        }
+        else if (this.handValue(this.dealerHand) === this.handValue(this.playerHand)) {
+          this.turnDescriptions.append("<li>On turn "+this.turnCounter+", the player and dealer tied with a hand of "+this.handValue(this.playerHand)+"</li>");
+          this.clearTable();
+          this.newTurn();
+        }
+        else {
+          this.playerWins();
+        }
+      }
+      // else the dealer went bust...
+      else {
+        this.playerWins();
+      }
 
     }
   },
 
-  // Function dealerPlay inserts a card into the dealer's hand (logically and visually)
-  dealerPlay: function() {
-
+  // Function hitDealer inserts a card into the dealer's hand (logically and visually)
+  hitDealer: function() {
+    console.log("hitDealer was called");
     var card = this.deck.pop();
     this.dealerHand.push(card);
 
@@ -244,59 +273,60 @@ var game = {
     var face = card.substring(0,1);
     (face == '0') ? face = '10' : face = face;
 
-    // If this is the first card being inserted, make it invisible
+    // If this is the first card being inserted, don't insert the suit/face value
     if(this.dealerHand.length == 1){
       $("#dealerHand").append("<span class='card hole'><span></span></span>");
     }
-    else{
+    else {
       $("#dealerHand").append("<div class='card'> <p class='"+suit+"'>"+face+" &"+suit+
         "s;</p><p class='bottom-right "+suit+"'>"+face+" &"+suit+"s;</p></div>");
     }
 
     if(this.handValue(this.dealerHand) > 21){
+      console.log("Dealer just went bust with the hand "+this.dealerHand+", value: "+this.handValue(this.dealerHand));
       this.playerWins();
-      this.newTurn();
-      return false;
     }
 
   },
 
   checkForBlackjacks: function() {
     //Check player and dealer for blackjacks
-    if(this.handValue(this.playerHand) == 21){
-      if(this.handValue(this.dealerHand) == 21){
+    if(this.handValue(this.playerHand) === 21){
+      if(this.handValue(this.dealerHand) === 21){
         this.playerHand = [];
         this.dealerHand = [];
-        console.log("It's a tie! Deal had ("+this.dealerHand+") and player had "+this.playerHand+").");
+        this.turnDescriptions.append("<li>On turn "+this.turnCounter+", the player and dealer tied with a hand of "+this.handValue(this.playerHand)+"</li>");
         this.clearTable();
+        this.newTurn();
       }else{
         this.playerWins();
-        this.newTurn();
       }
-    }else if(this.handValue(this.dealerHand) == 21){
+    }else if(this.handValue(this.dealerHand) === 21){
+      console.log("dealerWins from checkForBlackjacks");
       this.dealerWins();
-      this.newTurn();
     }
   },
 
   playerWins: function() {
-    console.log("Player won with the hand: "+this.playerHand+" ("+this.handValue(this.playerHand)+") and the dealer's hand was "+this.dealerHand+" ("+this.handValue(this.dealerHand)+")");
+    this.turnDescriptions.append("<li>On turn "+this.turnCounter+", the player won with a hand of "+this.handValue(this.playerHand)+" and the dealer's hand was "+this.handValue(this.dealerHand)+"</li>");
     this.playerHand = [];
     this.dealerHand = [];
     this.winCounter++;
     //Update win counter
     this.wins.html(this.winCounter.toString()+ " out of " + this.turnCounter.toString());
-    this.turn.html("current turn: "+(this.turnCounter+1));
+    this.turn.html("It's turn "+(this.turnCounter+1)+", and here were recent turns: ");
     this.clearTable();
+    this.newTurn();
   },
 
   dealerWins: function() {
-    console.log("Dealer won with the hand "+this.dealerHand+"("+this.handValue(this.dealerHand)+") and the player's hand was "+this.playerHand+" ("+this.handValue(this.playerHand)+")");
+    this.turnDescriptions.append("<li>On turn "+this.turnCounter+", the dealer won with a hand of "+this.handValue(this.dealerHand)+" and the player's hand was "+this.handValue(this.playerHand)+"</li>");
     this.playerHand = [];
     this.dealerHand = [];
     //Update win counter
     this.wins.html(this.winCounter.toString()+ " out of " + this.turnCounter.toString());
-    this.turn.html("current turn: "+(this.turnCounter+1));
+    this.turn.html("It's turn "+(this.turnCounter+1)+", and here were recent turns: ");
     this.clearTable();
+    this.newTurn();
   }
 }

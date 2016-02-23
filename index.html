@@ -50,6 +50,7 @@
         <h2 class="game-title">hands won</h2>
         <p class="wins"></p>
         <h2 class="turn"></h2>
+        <ul class="turn-descriptions"></ul>
       </div>
 
     </main>
@@ -60,7 +61,7 @@
 			<ul>
         <li><p id="instructions-button">How to Play</p></li>
 				<li><a href="http://www.segheysens.com">About me</a></li>
-				<li><a href="http://www.segheysens.com/blog.html">Blog</a></li>
+				<li><a href="http://www.segheysens.com/blog.html">My Blog</a></li>
 				<li><a href="mailto:segheysens@gmail.com">Contact Me</a></li>
 			</ul>
 			<ul>
@@ -93,6 +94,7 @@
     <!-- Instructions Window -->
     <div id="instructions" class="instructions-container invisible">
       <h1>(x) Single Player Blackjack</h1>
+      <section class="instructions-text">
       <p>In Blackjack, you want to get a hand with a total value as close to 21 as possible, without going over. If you go over 21, you lose. The dealer is also playing, and whomever has the has the total hand closer to 21 (<em>without going over</em>) wins. After starting with two cards each (one of the dealer's remains hidden), each play can <em>hit</em> for another card or <em>stand</em> with their current cards</p>
       <h3>Scoring:</h3>
       <ul>
@@ -105,9 +107,10 @@
         <li>10, J = 10 + 10 = 20 (a good hand, you'd want to <em>stand</em> if you had this)</li>
         <li>K, 3 = 10 + 3 = 13 (most players would want to hit here, but this changes depending on what's left in the deck and the odds of getting a card > 8)</li>
         <li>A, 7 = 9 or 18 (most would stand at 18, because the dealer would need 19, 20 or 21 to win, others may risk it)</li>
-        <li>Here's a site with the casino-style rules and strategy: http://www.hitorstand.net/strategy.php</li>
+        <li>Here's a site with the casino-style rules and strategy: <a href="http://www.hitorstand.net/strategy.php">http://www.hitorstand.net/strategy.php</a></li>
       </ul>
       <p>For experienced Blackjack players, no, there are no options for splitting pairs, insurance, etc. on this game. Sorry 'bout it! ¯\_(ツ)_/¯</p>
+    </section>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -115,6 +118,16 @@
     <script src="js/scripts.js"> </script>
     <script src="js/classie.js"> </script>
     <script src="js/borderMenu.js"> </script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-69308116-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+
 
   </body>
 
